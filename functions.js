@@ -1,38 +1,86 @@
 $(document).ready(function(){
-	//global
-	var diamonds=120;
-	var ore=0;
-	var digRate=1;
-	var smeltRate=1;
+	
+	var ore = {
+		total: 0,
+		unit: 1,
+		rate: 1,
+		add : function() {
+			gain = ore.unit * ore.rate;
+			ore.total += gain;
+		}
+	};
+	
+	var diamond = {
+		total: 0,
+		unit: 1,
+		rate: 1,
+		exchange : function() {
+			gain = diamond.unit * diamond.rate;
+			if(ore.total>=gain) {
+				ore.total -= gain;
+				diamond.total += gain;
+			} else {
+				diamond.total += ore.total;
+				ore.total = 0;
+			}	
+		}
+	};
+	
+	
+	
 	
 	var player = {
 		dig : function() {
-			ore=ore+digRate;
-			$("#ore").html(ore);
+			ore.add();
+			$("#ore").html(ore.total);
 		},
 		smelt : function() {
-			if(ore>0) {
-				ore=ore-smeltRate;
-				diamonds=diamonds+smeltRate;
-				$("#ore").html(ore);
-				$("#diamonds").html(diamonds);
+			if(ore.total>0) {
+				diamond.exchange();
+				$("#ore").html(ore.total);
+				$("#diamonds").html(diamond.total);
 			}
 		},
-		buy : function(x){
-			if(item[x].cost<=diamonds){
-				diamonds=diamonds-item[x].cost;
-				digRate=digRate+item[x].rate;
-				$("#diamonds").html(diamonds);
+		buy : function(i) {
+			if(diamond.total >= item[i].cost){
+				diamond.total -= item[i].cost;
+				switch(item[i].type) {
+					case dig:
+						ore.rate += item[i].rate;
+						break;
+					case smelt:
+						diamond.rate += item[i].rate;
+						break;
+					case boost:
+						upgrade.rate += item[i].rate;
+						break;
+				}
+			$("#diamonds").html(diamond.total);
+			} else {
+				alert("Not enough money");
+			}
+		},
+		sell : function(i) {
+			diamond.total += item[i].value;
+			switch(item[i].type) {
+				case dig:
+					ore.rate -= item[i].rate;
+					break;
+				case smelt:
+					diamond.rate -= item[i].rate;
+					break;
+				case boost:
+					upgrade.rate -= item[i].rate;
+					break;
 			}
 		}
-		
 	};
 	
 	
 	
 	
 	var item = {};
-	item['picaxe'] = {cost: 60, ret:20, rate: 0.2, type:mining};
+	item['picaxe'] = {cost: 2, rate: 0.5, value: 20, type: dig};
 
 
 
@@ -46,7 +94,9 @@ $(document).ready(function(){
 	});
 	$(".buy").on("click", function(){
 		player.buy($(this).attr("value"));
-		//alert(arr.picaxe.cost);
+	});
+	$(".sell").on("click", function(){
+		player.sell($(this).attr("value"));
 	});
 	
 
