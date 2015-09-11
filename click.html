@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ClickCraft</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="functions.js"></script>
+</head>
+<body>
+
+<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-12">
+			<p>Ore: <span id="ore">0</span></p>
+			<p>Diamonds: <span id="diamonds">0</span>$</p>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12">
+			<button id="dig" type="button">Dig!</button>
+			<button id="smelt" type="button">Smelt!</button>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12">
+			<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#mining">Mining</a></li>
+			<li><a data-toggle="tab" href="#crafting">Crafting</a></li>
+			<li><a data-toggle="tab" href="#upgrades">Upgrades</a></li>
+			<li><a data-toggle="tab" href="#stats">Stats</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div id="mining" class="tab-pane fade in active">
+					<h4>Picaxe</h4>
+					<img src="picaxe.png"/><br>
+					<p>60$<br>
+					Digs +0.2/sec<br>
+					<button type="button" class="buy" value="picaxe">Buy</button>
+					<button id="sell-pic" type="button">Sell</button>
+					</p>
+					
+					<h4>Torch</h4>
+					<p>260$<br>
+					Digs +1.5/s<br>
+					<button id="buy-axe" type="button">Buy</button>
+					<button id="sell-axe" type="button">Sell</button>
+					</p>
+					
+					<h4>Mine Cart</h4>
+					<p>1,500$<br>
+					Digs +5/s<br>
+					<button id="buy-torch" type="button">Buy</button>
+					<button id="sell-torch" type="button">Sell</button>
+					</p>
+					
+					<h4>Redstone Rail</h4>
+					<p>8,000$<br>
+					Digs +20/s<br>
+					<button id="buy-cart" type="button">Buy</button>
+					<button id="sell-cart" type="button">Sell</button>
+					</p>
+					
+					<h4>TNT</h4>
+					<p>35,000$<br>
+					Digs +80/s<br>
+					<button id="buy-tnt" type="button">Buy</button>
+					<button id="sell-tnt" type="button">Sell</button>
+					</p>
+				</div>
+				
+				<div id="crafting" class="tab-pane fade">
+					<h4>Crafting Table</h4>
+					<p>120$<br>
+					Smelts +0.2/sec<br>
+					<button id="buy-table" type="button">Buy</button>
+					<button id="sell-table" type="button">Sell</button>
+					</p>
+					
+					<h4>Lava Bucket</h4>
+					<p>295$<br>
+					Smelts +1/s<br>
+					<button id="buy-lava" type="button">Buy</button>
+					<button id="sell-lava" type="button">Sell</button>
+					</p>
+					
+					<h4>Anvil</h4>
+					<p>3,800$<br>
+					Smelts +10/s<br>
+					<button id="buy-anvil" type="button">Buy</button>
+					<button id="sell-anvil" type="button">Sell</button>
+					</p>
+					
+					<h4>Culdrin</h4>
+					<p>7,500$<br>
+					Smelts +20/s<br>
+					<button id="buy-culdrin" type="button">Buy</button>
+					<button id="sell-culdrin" type="button">Sell</button>
+					</p>
+					
+					<h4>Furnace</h4>
+					<p>32,000$<br>
+					Smelts +80/s<br>
+					<button id="buy-furnace" type="button">Buy</button>
+					<button id="sell-furnace" type="button">Sell</button>
+					</p>
+				</div>
+				
+				<div id="upgrades" class="tab-pane fade">
+					<h4>Chest</h4>
+					<p>180$<br>
+					Smelts +0.5/sec<br>
+					<button id="chest" type="button">Buy</button>
+					</p>
+					
+					<h4>Bed</h4>
+					<p>200$<br>
+					Digs +0.5/sec<br>
+					<button id="bed" type="button">Buy</button>
+					</p>
+					
+					<h4>Boots</h4>
+					<p>1,800$<br>
+					Digs 1.2x per click<br>
+					<button id="boots" type="button">Buy</button>
+					</p>
+					
+					<h4>Speed Potion</h4>
+					<p>10,000$<br>
+					Digs/Smelts 2x per click for 10 seconds<br>
+					<button id="potion" type="button">Buy</button>
+					</p>
+					
+					<h4>Fire Charge</h4>
+					<p>35,000$<br>
+					Smelts 3x per click for 5 seconds<br>
+					<button id="firecharge" type="button">Buy</button>
+					</p>
+				</div>
+				
+				<div id="stats" class="tab-pane fade">
+					<h3>Menu 3</h3>
+					<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+
+		</div>
+	</div>
+</div>
+
+
+
+
+
+</body>
+</html>

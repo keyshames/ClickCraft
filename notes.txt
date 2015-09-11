@@ -1,0 +1,17 @@
+mechanic=click(dig)
+
+>currency
+diamonds
+
+>click upgrades
+shovel
+pic axe
+minecart
+TNT
+
+
+>idle upgrades
+crafting table
+chest
+anval
+furnace
