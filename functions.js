@@ -1,101 +1,81 @@
 $(document).ready(function(){
 	
-	var ore = {
-		total: 0,
-		unit: 1,
-		rate: 1,
-		add : function() {
-			gain = ore.unit * ore.rate;
-			ore.total += gain;
-		}
-	};
-	
 	var diamond = {
 		total: 0,
 		unit: 1,
 		rate: 1,
-		exchange : function() {
-			gain = diamond.unit * diamond.rate;
-			if(ore.total>=gain) {
-				ore.total -= gain;
-				diamond.total += gain;
-			} else {
-				diamond.total += ore.total;
-				ore.total = 0;
-			}	
+		add : function() {
+			diamond.total += (diamond.unit * diamond.rate);
+		}
+		timer : function() {
+			idle
 		}
 	};
 	
-	
-	
-	
+
 	var player = {
 		dig : function() {
-			ore.add();
-			$("#ore").html(ore.total);
+			diamond.add();
+			stats();
 		},
-		smelt : function() {
-			if(ore.total>0) {
-				diamond.exchange();
-				$("#ore").html(ore.total);
-				$("#diamonds").html(diamond.total);
-			}
+		craft : function() {
+			diamond.timer();
+			stats();
 		},
 		buy : function(i) {
-			if(diamond.total >= item[i].cost){
+			if(item[i].cost <= diamond.total){
 				diamond.total -= item[i].cost;
+				item[i].inventory++;
 				switch(item[i].type) {
 					case dig:
-						ore.rate += item[i].rate;
+						diamond.rate += item[i].rate;
 						break;
-					case smelt:
+					case craft:
 						diamond.rate += item[i].rate;
 						break;
 					case boost:
 						upgrade.rate += item[i].rate;
 						break;
 				}
-			$("#diamonds").html(diamond.total);
-			} else {
-				alert("Not enough money");
+				stats();
 			}
 		},
 		sell : function(i) {
-			diamond.total += item[i].value;
-			switch(item[i].type) {
-				case dig:
-					ore.rate -= item[i].rate;
-					break;
-				case smelt:
-					diamond.rate -= item[i].rate;
-					break;
-				case boost:
-					upgrade.rate -= item[i].rate;
-					break;
+			if(item[i].inventory > 0) {
+				diamond.total += item[i].resale;
+				item[i].inventory--;
+				switch(item[i].type) {
+					case dig:
+						diamond.rate -= item[i].rate;
+						break;
+					case craft:
+						diamond.rate -= item[i].rate;
+						break;
+					case boost:
+						upgrade.rate -= item[i].rate;
+						break;
+				}
+				stats();
 			}
 		}
 	};
 	
-	
-	
-	
 	var item = {};
-	item['picaxe'] = {cost: 2, rate: 0.5, value: 20, type: dig};
+	item['picaxe'] = {type: dig, inventory: 0, cost: 2, rate: 0.5, resale: 0.5};
 
+	function stats() {
+		$("#diamond").html(diamond.total);
+		$("#rate").html(diamond.rate);
+		$("#inventory").html(item['picaxe'].inventory);
+	}
 
-
-
-
-	$("#dig").on("click", function(){
+	$("#dig").on("click", function() {
 		player.dig();
 	});
-	$("#smelt").on("click", function(){
-		player.smelt();
-	});
-	$(".buy").on("click", function(){
+	$(".buy").on("click", function() {
 		player.buy($(this).attr("value"));
 	});
-	$(".sell").on("click", function(){
+	$(".sell").on("click", function() {
 		player.sell($(this).attr("value"));
 	});
 	
